@@ -24,7 +24,7 @@ VSOutput VSMain(VSInput In)
 	//vsOut.pos.y *= 2.0f;
 	//vsOut.pos.xy *= 2.0f;
     // step-3 入力されたX座標を1.5倍、Y座標を0.5倍にして出力
-	vsOut.pos.x *= 1.5f;
+	vsOut.pos.x *= 1.75f;
 	vsOut.pos.y *= 0.5f;
     return vsOut;
 }

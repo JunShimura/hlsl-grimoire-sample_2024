@@ -86,8 +86,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         if (f > 500) {
             f = 0;
         }
-        triangleVB.Init(sizeof(vertices), sizeof(vertices[0]));
-        triangleVB.Copy(vertices);
+        //triangleVB.Init(sizeof(vertices), sizeof(vertices[0]));
+        //triangleVB.Copy(vertices);
         
         // レンダリング開始
         g_engine->BeginFrame();
@@ -107,7 +107,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // 5. インデックスバッファを設定
         renderContext.SetIndexBuffer(triangleIB);
         // 6. ドローコール
-        renderContext.DrawIndexed(6);
+        renderContext.DrawIndexed(3);
 
         /// //////////////////////////////////////
         // 絵を描くコードを書くのはここまで！！！

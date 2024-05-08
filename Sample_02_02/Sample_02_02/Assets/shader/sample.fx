@@ -1,15 +1,15 @@
 // 頂点シェーダーへの入力頂点構造体
 struct VSInput
 {
-    float4 pos : POSITION;
-    float3 color : COLOR; // 頂点からカラーのデータを引っ張ってくる
+	float4 pos : POSITION;
+	float3 color : COLOR; // 頂点からカラーのデータを引っ張ってくる
 };
 
 // 頂点シェーダーの出力
 struct VSOutput
 {
-    float4 pos : SV_POSITION;
-    float3 color : COLOR; // カラーの情報も出力する
+	float4 pos : SV_POSITION;
+	float3 color : COLOR; // カラーの情報も出力する
 };
 
 // 頂点シェーダー
@@ -17,10 +17,10 @@ struct VSOutput
 // 2. 戻り値は変換後の頂点情報
 VSOutput VSMain(VSInput In)
 {
-    VSOutput vsOut = (VSOutput)0;
-    vsOut.pos = In.pos;
-    vsOut.color = In.color; // カラーの情報を出力する
-    return vsOut;
+	VSOutput vsOut = (VSOutput) 0;
+	vsOut.pos = In.pos;
+	vsOut.color = In.color; // カラーの情報を出力する
+	return vsOut;
 }
 
 // ピクセルシェーダー
@@ -37,9 +37,9 @@ float4 PSMain(VSOutput vsOut) : SV_Target0
 	//return float4(1.0f, 1.0f, 0.0f, 0.5f);
     // step-4 頂点シェーダーから受け取ったカラーを出力する
 	float4 color;
-	color.x = vsOut.color.x;
-	color.y = vsOut.color.y;
-	color.z = vsOut.color.z;
+	color.x = (vsOut.pos.y % 100) / 100; //vsOut.color.x;
+	color.y = (vsOut.pos.x % 100) / 100; //vsOut.color.y;
+	color.z = (vsOut.pos.y % 200) / 200; //vsOut.color.z;
 	color.w = 1.0f;
 	return color;
 }

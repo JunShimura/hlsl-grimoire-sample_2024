@@ -1,7 +1,8 @@
 ﻿#include "stdafx.h"
 #include "system/system.h"
 //#include "TrianglePolygon.h"
-#include "RectanglePolygon.h"
+//#include "RectanglePolygon.h"
+#include "PolygonSet.h"
 
 // 関数宣言
 void InitRootSignature(RootSignature& rs);
@@ -26,12 +27,48 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	ConstantBuffer cb;
 
 	cb.Init(sizeof(Matrix));
+
+	// 頂点データ
+	SimpleVertex vert[]
+		= {
+			{// 左下
+				{-0.5f, -0.5f, 0.0f},
+				{ 1.0f, 0.0f, 0.0f },
+				{ 0.0f, 0.0f }
+			},
+			{	// 左上
+				{ -0.5f, 0.5f, 0.0f },
+				{ 0.0f, 1.0f, 0.0f },
+				{ 0.5f, 1.0f }
+			},
+			{	// 右上
+				{ 0.5f, 0.5f, 0.0f },
+				{ 0.0f, 0.0f, 1.0f },
+				{1.0f, 0.0f}
+			},
+			{	// 右下
+				{ 0.5f, -0.5f, 0.0f },
+				{ 0.0f, 0.0f, 1.0f },
+				{1.0f, 0.0f}
+			}
+		};
+	//indexデータ
+	unsigned short indices[] = {
+		0,1,3,1,2,3
+	};
+
 	// 三角形ポリゴンを定義
 	//TrianglePolygon triangle;
-	RectanglePolygon rectangle;
+	//RectanglePolygon rectangle;
+	PolygonSet polygonSet
+		= PolygonSet(
+			vert,
+			_countof(vert),
+			indices,
+			_countof(indices));
 
 	//triangle.Init(rootSignature);
-	rectangle.Init(rootSignature);
+	polygonSet.Init(rootSignature);
 
 	// step-1 三角形ポリゴンにUV座標を設定
 	//triangle.SetUVCoord(
@@ -51,26 +88,26 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//);
 
 	//四角形ポリゴンにUV座標を設定
-	rectangle.SetUVCoord(
-		0,    // 頂点の番号  左下  
-		0.0f, // U座標    
-		1.0f  // V座標
-	);
-	rectangle.SetUVCoord(
-		1,    // 頂点の番号  左上  
-		0.0f, // U座標    
-		0.0f  // V座標
-	);
-	rectangle.SetUVCoord(
-		2,    // 頂点の番号  右上  
-		1.0f, // U座標    
-		0.0f  // V座標
-	);
-	rectangle.SetUVCoord(
-		3,    // 頂点の番号  右下  
-		1.0f, // U座標    
-		1.0f  // V座標
-	);
+	//rectangle.SetUVCoord(
+	//	0,    // 頂点の番号  左下  
+	//	0.0f, // U座標    
+	//	1.0f  // V座標
+	//);
+	//rectangle.SetUVCoord(
+	//	1,    // 頂点の番号  左上  
+	//	0.0f, // U座標    
+	//	0.0f  // V座標
+	//);
+	//rectangle.SetUVCoord(
+	//	2,    // 頂点の番号  右上  
+	//	1.0f, // U座標    
+	//	0.0f  // V座標
+	//);
+	//rectangle.SetUVCoord(
+	//	3,    // 頂点の番号  右下  
+	//	1.0f, // U座標    
+	//	1.0f  // V座標
+	//);
 
 
 	// step-2 テクスチャをロード
@@ -118,7 +155,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//三角形をドロー
 		//triangle.Draw(renderContext);
-		rectangle.Draw(renderContext);
+		polygonSet.Draw(renderContext);
 
 
 		/// //////////////////////////////////////

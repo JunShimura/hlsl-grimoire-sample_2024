@@ -34,12 +34,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			{// 左下
 				{-0.5f, -0.5f, 0.0f},
 				{ 1.0f, 0.0f, 0.0f },
-				{ 0.0f, 0.0f }
+				{ 0.0f, 1.0f }
 			},
 			{	// 左上
 				{ -0.5f, 0.5f, 0.0f },
 				{ 0.0f, 1.0f, 0.0f },
-				{ 0.5f, 1.0f }
+				{ 0.0f, 0.0f }
 			},
 			{	// 右上
 				{ 0.5f, 0.5f, 0.0f },
@@ -49,7 +49,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			{	// 右下
 				{ 0.5f, -0.5f, 0.0f },
 				{ 0.0f, 0.0f, 1.0f },
-				{1.0f, 0.0f}
+				{1.0f, 1.0f}
 			}
 		};
 	//indexデータ

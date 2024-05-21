@@ -6,7 +6,10 @@ PolygonSet::PolygonSet(
 	unsigned int num_v,
 	unsigned short indices[],
 	unsigned int num_i) {
-
+	this->vertices = vertices;
+	this->numV = num_v;
+	this->indices = indices;
+	this->numI = num_i;
 }
 void PolygonSet::Init(RootSignature& rs)
 {
@@ -84,7 +87,7 @@ void PolygonSet::SetUVCoord(int vertNo, float U, float V)
 }
 void PolygonSet::InitIndexBuffer()
 {
-	m_indexBuffer.Init(sizeof(*indices), 2);
+	m_indexBuffer.Init(sizeof(*indices)*this->numI, 2);
 	m_indexBuffer.Copy(static_cast<uint16_t*>(indices));
 
 }

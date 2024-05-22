@@ -50,11 +50,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				{ 0.5f, -0.5f, 0.0f },
 				{ 0.0f, 0.0f, 1.0f },
 				{1.0f, 1.0f}
+			},
+			{	// 中上
+				{ 0.0f, 0.75f, 0.0f },
+				{ 1.0f, 1.0f, 1.0f },
+				{0.5f, 0.0f}
 			}
-		};
+	};
 	//indexデータ
 	unsigned short indices[] = {
-		0,1,3,1,2,3
+		0,1,3, 1,2,3, 1,4,2
 	};
 
 	// 三角形ポリゴンを定義

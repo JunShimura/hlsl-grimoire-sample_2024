@@ -41,7 +41,8 @@ float4 PSMain(VSOutput vsOut) : SV_Target0
 		vsOut.uv    // 第2引数はUV座標
 		);
 	//return texColor;
-    // 元々のコードはいらないので、コメントアウト
+	//return float4(vsOut.color, 1.0f);
+	// 元々のコードはいらないので、コメントアウト
     //return float4(vsOut.color, 1.0f);
 	float4 outColor=texColor;
 	outColor.rgb = lerp(vsOut.color, texColor.rgb, 0.25f);

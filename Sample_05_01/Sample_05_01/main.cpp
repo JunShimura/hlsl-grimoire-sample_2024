@@ -13,6 +13,10 @@ struct Light
     float pad1;
 
     // step-1 ライト構造体にポイントライト用のメンバ変数を追加する
+    Vector3 ptPosition; // 位置
+    float   pad2;       // パディング
+    Vector3 ptColor;    // カラー
+    float   ptRage;     // 影響範囲
 
     Vector3 eyePos;         // 視点の位置
     float pad3;
@@ -63,10 +67,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     light.ambientLight.z = 0.3f;
 
     // step-2 ポイントライトの初期座標を設定する
+    light.ptPosition.x = 0.0f;
+    light.ptPosition.y = 0.0f;
+    light.ptPosition.z = 0.0f;
 
     // step-3 ポイントライトの初期カラーを設定する
+    light.ptColor.x = 15.0f;
+    light.ptColor.y = 0.0f;
+    light.ptColor.z = 0.0f;
 
     // step-4 ポイントライトの影響範囲を設定する
+    light.ptRage = 100.0f;
 
     // モデルを初期化する
     // モデルを初期化するための情報を構築する
@@ -88,7 +99,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         //////////////////////////////////////
 
         // step-5 コントローラーでポイントライトを動かす
-        
+        light.ptPosition.x -= g_pad[0]->GetLStickXF();
+        if(g_pad[0]->IsPress(enButtonB))
+        {
+            light.ptPosition.y += g_pad[0]->GetLStickYF();
+        }
+        else
+        {
+            light.ptPosition.z -= g_pad[0]->GetLStickYF();
+        }
+
+        // 電球モデルのワールド行列を更新する
+        lightModel.UpdateWorldMatrix(light.ptPosition, g_quatIdentity, g_vec3One);
+
         // 背景モデルをドロー
         bgModel.Draw(renderContext);
 

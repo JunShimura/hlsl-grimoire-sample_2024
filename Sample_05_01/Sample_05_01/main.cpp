@@ -67,9 +67,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     light.ambientLight.z = 0.3f;
 
     // step-2 ポイントライトの初期座標を設定する
-    light.ptPosition.x = 0.0f;
-    light.ptPosition.y = 0.0f;
-    light.ptPosition.z = 0.0f;
+    light.ptPosition.x = 30.0f;
+    light.ptPosition.y = 30.0f;
+    light.ptPosition.z = 50.0f;
 
     // step-3 ポイントライトの初期カラーを設定する
     light.ptColor.x = 15.0f;

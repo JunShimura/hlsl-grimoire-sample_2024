@@ -94,7 +94,6 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // ポイントライトによるLambert拡散反射光とPhong鏡面反射光を計算する
     // step-7 サーフェイスに入射するポイントライトの光の向きを計算する
 	float3 ligDir = psIn.worldPos - ptPosition;
-    
     // 正規化して大きさ1のベクトルにする
 	ligDir = normalize(ligDir);
     
@@ -121,7 +120,10 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 	float affect = 1.0f - 1.0f / ptRange * distance;
 	
 	// 影響力がマイナスにならないように補正をかける
-	affect = max(0, affect);
+	if (affect < 0.0f)
+	{
+		affect = 0.0f;
+	}
 	
 	// 影響を知す関数的にする、今回のサンプルでは3乗している
 	affect = pow(affect, 3.0f);
@@ -133,11 +135,19 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // step-12 2つの反射光を合算して最終的な反射光を求める
 	float3 diffuseLig = diffPoint + diffDirection;
 	float3 specularLig = specPoint + specDirection;
+	//float3 diffuseLig = diffPoint;	// 実験のために変更
+	//float3 specularLig = specPoint; // 実験のために変更
 	
     // 拡散反射光と鏡面反射光を足し算して、最終的な光を求める
 	float3 lig = diffuseLig + specularLig + ambientLight;
+	// float3 lig = diffuseLig + specularLig;	//実験のため変更
+	//float3 lig = diffuseLig; //実験のため変更
+	//float3 lig = specularLig;	//実験のため変更
+	
 	float4 finalColor = g_texture.Sample(g_sampler, psIn.uv);
-
+	//float4 finalColor = float4(0.5f,0.5f,0.5f,1.0f);	//　実験のために変更50%グレー
+	//float4 finalColor = float4(0.5f, 0.5f, 0.25f, 1.0f); //　実験のために変更50%Y
+	
     // テクスチャカラーに求めた光を乗算して最終出力カラーを求める
 	finalColor.xyz *= lig;
 	return finalColor;

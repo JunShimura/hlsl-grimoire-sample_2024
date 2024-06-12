@@ -98,7 +98,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 	ligDir = normalize(ligDir);
     
     // step-8 減衰なしのLambert拡散反射光を計算する
-	float diffPoint = CalcLambertDiffuse(
+	float3 diffPoint = CalcLambertDiffuse(			// floatにしていたものを訂正
 		ligDir, // ライトの方向
 		ptColor, // ライトのカラー
 		psIn.normal	// サーフェイスの法線
@@ -114,7 +114,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 
     // step-10 距離による影響率を計算する
 	// ポイントライトとの距離を計算する
-	float distance = length(psIn.worldPos - ptPosition);
+	float distance = length(psIn.worldPos - ptPosition); // Sample.after.fxの方が間違っている
 	
 	// 影響率は距離に比例して小さくなっていく
 	float affect = 1.0f - 1.0f / ptRange * distance;

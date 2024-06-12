@@ -143,7 +143,7 @@ void InitModel(Model& bgModel, Model& teapotModel, Model& lightModel, Light& lig
     bgModelInitData.m_tkmFilePath = "Assets/modelData/bg.tkm";
 
     // 使用するシェーダーファイルパスを設定する
-    bgModelInitData.m_fxFilePath = "Assets/shader/sample.fx";
+    bgModelInitData.m_fxFilePath = "Assets/shader/sample.after.fx";
 
     // ディレクションライトの情報をディスクリプタヒープに
     // 定数バッファとして登録するためにモデルの初期化情報として渡す

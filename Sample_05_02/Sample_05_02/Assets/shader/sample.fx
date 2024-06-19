@@ -42,12 +42,13 @@ cbuffer DirectionLightCb : register(b1)
 	float ptRange; // ポイントライトの影響範囲
 
     // step-5 スポットライトのデータにアクセスするための変数を追加する
-	float3	spPosition;		// スポットライトの位置
-	float3	spColor;		// スポットライトのカラー
-	float	spRange;		// スポットライトの射出範囲
-	float3	spDirection;	// スポットライトの射出方向
-	float	spAngle;		// スポットライトの射出角度
-    
+	float3 spPosition; // スポットライトの位置
+	float spDistanceRate; // 距離による減退率
+	float3 spColor; // スポットライトのカラー
+	float spRange; // スポットライトの射出範囲
+	float3 spDirection; // スポットライトの射出方向
+	float spAngle; // スポットライトの射出角度
+	
 	float3 eyePos; // 視点の位置
 	float3 ambientLight; // アンビエントライト
 };
@@ -139,7 +140,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 		affect = 0.0f;
 	}
     // 影響の仕方を指数関数的にする。今回のサンプルでは3乗している
-	affect = pow(affect, 3.0f);
+	affect = pow(affect, spDistanceRate);
         
     // step-10 影響率を乗算して反射光を弱める
 	diffSpotLight *= affect;
@@ -162,7 +163,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 	}
 	
 	// 影響の仕方を指数関数的にする。今回のサンプルでは0.5乗している
-	affect = pow(affect, 0.5f);
+	affect = pow(affect, 3.5f);
 		
     // step-13 角度による影響率を反射光に乗算して、影響を弱める
 	diffSpotLight *= affect;

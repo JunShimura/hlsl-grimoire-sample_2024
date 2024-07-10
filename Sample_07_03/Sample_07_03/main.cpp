@@ -60,7 +60,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     light.directionalLight[0].color.y = 3.0f;
     light.directionalLight[0].color.z = 3.0f;
 
-    light.directionalLight[0].direction.x = 2.0f;
+    light.directionalLight[0].direction.x = 1.0f;
     light.directionalLight[0].direction.y = -1.0f;
     light.directionalLight[0].direction.z = 3.0f;
     light.directionalLight[0].direction.Normalize();

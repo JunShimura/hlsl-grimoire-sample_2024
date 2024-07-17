@@ -31,6 +31,28 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     bgModel.Init(modelInitData);
 
     // step-1 Spriteクラスのオブジェクトを初期化する
+    // まずはSpriteクラスの初期化オブジェクトを作成する
+    SpriteInitData spriteInitData;
+
+    // テクスチャのファイルパスを指定
+    spriteInitData.m_ddsFilePath[0] = "Assets/image/test.dds";
+
+    // シェーダーファイルパスを指定
+    spriteInitData.m_fxFilePath = "Assets/shader/sample2D.fx";
+
+    // スプライトの幅と高さを指定
+    spriteInitData.m_width = 128.0f;
+    spriteInitData.m_height = 128.0f;
+
+    // αブレンディングモードを半透明にして設定
+    spriteInitData.m_alphaBlendMode = AlphaBlendMode_Add;
+
+    // Spriteクラスのオブジェクトを定義して初期化する
+    Sprite test2D;
+
+    // Init()に初期化オブジェクトを渡し2Dを初期化する
+    test2D.Init(spriteInitData);
+
 
     //////////////////////////////////////
     // 初期化を行うコードを書くのはここまで！！！
@@ -47,9 +69,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // ここから絵を描くコードを記述する
         //////////////////////////////////////
         // 背景モデルをドロー
-        bgModel.Draw(renderContext);
+        //bgModel.Draw(renderContext);
 
         // step-2 スプライトのドローコールを実行する
+        test2D.Draw(renderContext);
 
         //////////////////////////////////////
         //絵を描くコードを書くのはここまで！！！

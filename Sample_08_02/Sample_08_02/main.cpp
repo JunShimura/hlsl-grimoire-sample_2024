@@ -69,7 +69,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // ここから絵を描くコードを記述する
         //////////////////////////////////////
         // 背景モデルをドロー
-        //bgModel.Draw(renderContext);
+        bgModel.Draw(renderContext);
 
         // step-2 スプライトのドローコールを実行する
         test2D.Draw(renderContext);

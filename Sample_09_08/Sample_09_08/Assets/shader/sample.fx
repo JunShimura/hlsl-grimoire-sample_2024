@@ -41,6 +41,13 @@ float4 PSMain(PSInput In) : SV_Target0
     float4 color = colorTexture.Sample(Sampler, In.uv);
 
     // step-1 画像を徐々にセピア調に変化させていく
-
+    // ピクセルの明るさを計算する
+	float Y = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
+    
+	float3 sepiaColor = { Y * 0.9f, Y * 0.7f, Y * 0.4f };
+    
+    // セピア率を使って徐々に白黒にしていく
+	color.xyz = lerp(color, sepiaColor, sepiaRate);
+    
     return color;
 }

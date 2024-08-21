@@ -11,6 +11,7 @@ cbuffer cb : register(b0)
 cbuffer WipeCB : register(b1)
 {
     float wipeSize;        //ワイプサイズ
+	float2 center;
 };
 
 struct VSInput
@@ -41,7 +42,7 @@ float4 PSMain(PSInput In) : SV_Target0
     float4 color = colorTexture.Sample(Sampler, In.uv);
 
     // step-1 画面の中央からこのピクセルに向かって伸びるベクトルを計算する
-	float2 posFromcenter = In.pos.xy - float2(640.0f, 360.0f);
+	float2 posFromcenter = In.pos.xy - center;
     // step-2 画面の中央からの距離とwipeSizeを利用してピクセルキル
 	clip(length(posFromcenter) - wipeSize);
     return color;

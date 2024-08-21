@@ -7,6 +7,11 @@ struct SimpleVertex
     Vector4 pos;    // 頂点座標
     Vector2 uv;     // UV座標
 };
+struct WipeSettings
+{
+    float wipeSize; // 半径
+    Vector2 center; // 中心点
+};
 
 // 関数宣言
 void InitRootSignature(RootSignature& rs);
@@ -38,9 +43,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     spriteInitData.m_width = FRAME_BUFFER_W;
     spriteInitData.m_height = FRAME_BUFFER_H;
     // ワイプサイズ
-    float wipeSize = 0;
-    spriteInitData.m_expandConstantBuffer = &wipeSize;
-    spriteInitData.m_expandConstantBufferSize = sizeof(wipeSize);
+    WipeSettings wipeSettings;
+    wipeSettings.wipeSize = 0.0f;
+    wipeSettings.center = { FRAME_BUFFER_W/2 ,FRAME_BUFFER_H/2 };
+    spriteInitData.m_expandConstantBuffer = &wipeSettings;
+    spriteInitData.m_expandConstantBufferSize = sizeof(wipeSettings);
+    
+    //float wipeSize = 0;
+    //spriteInitData.m_expandConstantBuffer = &wipeSize;
+    //spriteInitData.m_expandConstantBufferSize = sizeof(wipeSize);
+
+
 
     // Spriteクラスのオブジェクトを定義して初期化する
     Sprite test2D;
@@ -62,7 +75,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // ここから絵を描くコードを記述する
         //////////////////////////////////////
         //ワイプサイズを増やして少しずつワイプさせる
-        wipeSize += 5.0f;
+        wipeSettings.wipeSize += 5.0f;
 
         // スプライトのドローコールを実行する
         test2D.Draw(renderContext);

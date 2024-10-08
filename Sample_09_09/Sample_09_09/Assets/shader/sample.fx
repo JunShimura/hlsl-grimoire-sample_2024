@@ -50,7 +50,7 @@ float4 PSMain(PSInput In) : SV_Target0
 	}
 	*/
 	float4 color = colorTexture.Sample(Sampler, uv);
-	float t = (int) fmod(In.pos.y, 64.0f);
+	float t = (int) fmod(In.pos.x, 64.0f);
 	if (t - negaRate * 100 < 0)
 	{
     // step-1 画像を徐々にネガポジ反転させていく

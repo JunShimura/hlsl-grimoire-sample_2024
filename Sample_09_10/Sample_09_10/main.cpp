@@ -70,7 +70,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//////////////////////////////////////
 
 		/////
-		noiseRate = (float)pow(sin(f++ / 100.0),2)/10.0;
+		noiseRate = (float)pow(sin(f++ / 10.0),2)/10.0;
 
 		// スプライトのドローコールを実行する
 		test2D.Draw(renderContext);

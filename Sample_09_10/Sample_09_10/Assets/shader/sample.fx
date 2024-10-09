@@ -66,7 +66,7 @@ float4 PSMain(PSInput In) : SV_Target0
 	t = (t - 0.5f) * 2.0f;
     // UV座標にノイズを加える。0.01fはノイズの強さ
     // この数値を大きくするとノイズが大きくなる
-	float2 uv = In.uv + t * 0.01f;
+	float2 uv = In.uv + t * noiseRate; // 0.01f;
     // ずらしたUV座標を利用して、カラーをサンプリングする
 	float4 color = colorTexture.Sample(Sampler, uv);
 	return color;

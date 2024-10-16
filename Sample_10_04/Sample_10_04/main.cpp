@@ -43,6 +43,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     InitRootSignature(rs);
 
     // step-1 ゲームシーンを描画するレンダリングターゲットを作成
+    RenderTarget mainRenderTarget;
+    mainRenderTarget.Create(
+        FRAME_BUFFER_W,
+        FRAME_BUFFER_H,
+        1,
+        1,
+        DXGI_FORMAT_R8G8B8A8_UNORM,
+        DXGI_FORMAT_D32_FLOAT
+    );
 
     // 背景モデルを初期化
     ModelInitData bgModelInitData;
@@ -68,6 +77,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     plModel.Init(plModelInitData);
 
     // step-2 ガウスブラー用の重みテーブルを計算する
+    const int NUM_WEIGHTS = 8;
+
+    // テーブルのサイズは8
+    float weights[NUM_WEIGHTS];
+
+    // 重みテーブルを計算する
+    CalcWeightsTableFromGaussian(
+        weights,    // 重みの格納先
+        NUM_WEIGHTS,    // 重みのテーブルサイズ
+        8.0f        // ボケ具合。この数値が大きくなるとボケが強くなる
+    );
 
     // step-3 横ブラー用のレンダリングターゲットを作成
 

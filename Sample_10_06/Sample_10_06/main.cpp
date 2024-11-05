@@ -172,15 +172,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	finalSpriteInitData.m_textures[3] = &gaussianBlur[3].GetBokeTexture();
 
 	// 解像度はmainRenderTargetの幅と高さ
-
-	// mainRenderTargetのテクスチャをフレームバッファーに貼り付けるためのスプライトを初期化する
-	// スプライトの初期化オブジェクトを作成する
-	SpriteInitData spriteInitData;
-
-	// テクスチャはmainRenderTargetのカラーバッファー
-	spriteInitData.m_textures[0] = &mainRenderTarget.GetRenderTargetTexture();
-	spriteInitData.m_width = FRAME_BUFFER_W;    // 1280
-	spriteInitData.m_height = FRAME_BUFFER_H;   //720
+	finalSpriteInitData.m_width = FRAME_BUFFER_W;	// 1280;
+	finalSpriteInitData.m_height = FRAME_BUFFER_H;	//720;
 
 	// 【注目】ボケ画像を合成する必要があるので、2D用のシェーダーではなく、
 	// 専用のシェーダーを指定
@@ -197,6 +190,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Sprite finalSprite;
 	finalSprite.Init(finalSpriteInitData);
 
+	// mainRenderTargetのテクスチャをフレームバッファーに貼り付けるためのスプライトを初期化する
+	// スプライトの初期化オブジェクトを作成する
+	SpriteInitData spriteInitData;
+
+	// テクスチャはmainRenderTargetのカラーバッファー
+	spriteInitData.m_textures[0] = &mainRenderTarget.GetRenderTargetTexture();
+	spriteInitData.m_width = FRAME_BUFFER_W;    // 1280
+	spriteInitData.m_height = FRAME_BUFFER_H;   //720
 	// モノクロ用のシェーダーを指定する
 	spriteInitData.m_fxFilePath = "Assets/shader/sample2D.fx";
 

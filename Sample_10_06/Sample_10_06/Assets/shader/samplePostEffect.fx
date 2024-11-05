@@ -66,10 +66,10 @@ float4 PSBloomFinal(PSInput In) : SV_Target0
 {
     // step-6 ボケ画像をサンプリングして、平均をとって出力する
 	float4 combineColor = g_bokeTexture_0.Sample(Sampler, In.uv);
-	// combineColor += g_bokeTexture_1.Sample(Sampler, In.uv);
-	// combineColor += g_bokeTexture_2.Sample(Sampler, In.uv);
-	// combineColor += g_bokeTexture_3.Sample(Sampler, In.uv);
-	// combineColor /= 4.0f;
+	combineColor += g_bokeTexture_1.Sample(Sampler, In.uv);
+	combineColor += g_bokeTexture_2.Sample(Sampler, In.uv);
+	combineColor += g_bokeTexture_3.Sample(Sampler, In.uv);
+	combineColor /= 4.0f;
 	combineColor.a = 1.0f;
 
 	return combineColor;

@@ -136,7 +136,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// 初期化情報を設定する
 	SpriteInitData yBlurSpriteInitData;
 	yBlurSpriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
-	yBlurSpriteInitData.m_vsEntryPointFunc = "VSYBlur";
+	yBlurSpriteInitData.m_vsEntryPointFunc = "VSXBlur";
 	yBlurSpriteInitData.m_psEntryPoinFunc = "PSBlur";
 
 	// スプライトの幅と高さはyBlurRenderTargetと同じ

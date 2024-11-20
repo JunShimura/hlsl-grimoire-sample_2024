@@ -60,9 +60,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	spriteInitData.m_height = FRAME_BUFFER_H;   // 720;
 
 	//　【重要！！！】モノクロ用のシェーダーを指定する
-	spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect_solarization.fx";
+	// spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect_mosaic.fx";
+	// spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect_solarization.fx";
 	// spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect_reverse.fx";
-	//spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
+	spriteInitData.m_fxFilePath = "Assets/shader/samplePostEffect.fx";
 
 	// 初期化オブジェクトを使って、スプライトを初期化する
 	Sprite monochromeSprite;

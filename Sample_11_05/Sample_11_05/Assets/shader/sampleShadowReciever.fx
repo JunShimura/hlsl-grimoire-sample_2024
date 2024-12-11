@@ -11,6 +11,11 @@ cbuffer ModelCb : register(b0)
 };
 
 // step-11 影用のパラメータにアクセスする定数バッファーを定義
+cbuffer ShadowParamCb : register(b1)
+{
+	float4x4 mLVP; // ライトビュープロジェクション行列
+	float3 lightPos; // ライトの座標
+};
 
 // 頂点シェーダーへの入力
 struct SVSIn
@@ -56,7 +61,7 @@ SPSIn VSMain(SVSIn vsIn)
     psIn.posInLVP = mul(mLVP, worldPos);
 
     // step-12 頂点のライトから見た深度値を計算する
-
+	psIn.posInLVP.z = length(worldPos.xyz - lightPos) / 1000.0f;
     return psIn;
 }
 
@@ -77,10 +82,34 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 
     if(shadowMapUV.x > 0.0f && shadowMapUV.x < 1.0f
         && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f)
-    {
+	{
         // step-13 シャドウレシーバーに影を落とす
+        // シャドウマップから値をサンプリング
+		float2 shawValue = g_shadowMap.Sample(g_sampler, shadowMapUV).xy;
+        
+        // まずこのぴくせるが遮蔽されてるか調べる。これは追雨情のデプスシャドウと同じ
+		if (zInLVP > shawValue.r && zInLVP <= 1.0f)
+		{
+            // 遮蔽されているなら、チェビシェフの不等式を利用して光が当たる確率を求める
+			float depth_sq = shawValue.x * shawValue.x;
+            
+            // このグループの分散具合を求める
+            // 分散が大きいほど、vairanceの数値は大きくなる
+			float variance = min(max(shawValue.y - depth_sq, 0.0001f), 1.0f);
+            
+            // このピクセルのライトから見た深度値とシャドウマップの平均の深度値のさを求める
+			float md = zInLVP - shawValue.x;
+            
+            // 光が届く確率を求める
+			float lit_factor = variance / (variance + md * md);
+            
+            // シャドウカラーを求める
+			float3 shadowcolor = color.xyz * 0.5f;
+            
+            // 光が当たる確率を使って通常カラーとシャドウカラーを線形補間
+			color.xyz = lerp(shadowcolor, color.xyz, lit_factor);
 
-    }
-
+		}
+	}
     return color;
 }

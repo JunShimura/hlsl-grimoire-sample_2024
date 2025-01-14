@@ -34,12 +34,51 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
     // step-1 シャドウマップの枚数を定数で定義する
+    const int NUM_SHADOW_MAP = 3;
 
     // step-2 ライトビュープロジェクションクロップ行列の配列を定義する
+    Matrix lvpcMatrix[NUM_SHADOW_MAP];
 
     // step-3 シャドウマップを書き込むレンダリングターゲットを3枚用意する
+    RenderTarget shadowMaps[NUM_SHADOW_MAP];
+
+    // 近影用のシャドウマップ
+    shadowMaps[0].Create(
+        2048,
+        2048,
+        1,
+        1,
+        DXGI_FORMAT_R32_FLOAT,
+        DXGI_FORMAT_D32_FLOAT,
+        clearColor
+    );
+    // 中影用のシャドウマップ
+    shadowMaps[1].Create(
+        1024,
+        1024,
+        1,
+        1,
+        DXGI_FORMAT_R32_FLOAT,
+        DXGI_FORMAT_D32_FLOAT,
+        clearColor
+    );
+    // 遠影用のシャドウマップ
+    shadowMaps[2].Create(
+        512,
+        512,
+        1,
+        1,
+        DXGI_FORMAT_R32_FLOAT,
+        DXGI_FORMAT_D32_FLOAT,
+        clearColor
+    );
 
     // step-4 分割エリアの最大深度値を定義する
+    float cascadeAreaTbl[NUM_SHADOW_MAP] = {
+        500,    // 近影を映す最大深度値
+        2000,   // 中影を映す最大深度値
+        g_camera3D->GetFar(),   // 遠影を映す最大深度値。最大深度はカメラのFarクリップ
+    };
 
     // 影を落とすモデルを初期化する
     Model testShadowModel[NUM_SHADOW_MAP];
@@ -52,6 +91,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     teapotModel.Init("Assets/modelData/testModel.tkm");
 
     // step-5 影を受ける背景モデルを初期化
+
+
 
     //////////////////////////////////////
     // 初期化を行うコードを書くのはここまで！！！

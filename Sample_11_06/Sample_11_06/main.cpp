@@ -44,8 +44,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	// 近影用のシャドウマップ
 	shadowMaps[0].Create(
-		2048,
-		2048,
+		8192,
+		8192,
 		1,
 		1,
 		DXGI_FORMAT_R32_FLOAT,
@@ -107,10 +107,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// 【注目】ライトビュープロジェクションクロップ行列を拡張定数バッファーに設定する
 	bgModelInitData.m_expandConstantBuffer = (void*)lvpcMatrix;
 	bgModelInitData.m_expandConstantBufferSize = sizeof(lvpcMatrix);
+	//bgModelInitData.m_tkmFilePath = "Assets/modelData/10-1/bg/bg.tkm";
+	//bgModelInitData.m_tkmFilePath = "Assets/modeldata/testmodel.tkm";
 	bgModelInitData.m_tkmFilePath = "Assets/modeldata/bg/bg.tkm";
-
 	Model bgModel;
 	bgModel.Init(bgModelInitData);
+	//bgModel.UpdateWorldMatrix(Vector3(0, -50, -100), g_quatIdentity, g_vec3One);
 
 	//////////////////////////////////////
 	// 初期化を行うコードを書くのはここまで！！！
@@ -224,7 +226,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			renderContext.ClearRenderTargetView(shadowMaps[areaNo]);
 
 			//影モデルを描画
-			testShadowModel->Draw(renderContext, g_matIdentity, lvpcMatrix[areaNo]);
+			testShadowModel[areaNo].Draw(renderContext, g_matIdentity, lvpcMatrix[areaNo]);
 
 			// 書き込み完了待ち
 			renderContext.WaitUntilFinishDrawingToRenderTarget(shadowMaps[areaNo]);
